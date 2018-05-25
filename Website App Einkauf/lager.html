@@ -1,0 +1,220 @@
+<!-- TODO: add item count lager to #nav_side_name -->
+<!-- TODO: 	add edit db dropdowns -->
+<!-- TODO:  save NON cutted (original) value of einheit and only cut if used and displayed.-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="CSS/STYLE.css">
+    <link rel="stylesheet" href="CSS/W3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JS -->
+    <script type ="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="JS/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="JS/prototype.js"></script>
+    <script type="text/javascript" src="JS/header.js"></script>
+    <script type="text/javascript" src="JS/db.js"></script>
+    <script type="text/javascript" src="JS/lager.js"></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+    <header>
+      <!-- Navbar -->
+      <div class="w3-top"  style="z-index:3">
+        <div class="w3-bar w3-teal navbar">
+          <div class="holy-grail">
+            <a class="w3-bar-item material-icons md-48 w3-teal w3-text-white w3-border-0 menu-symbol" id="nav_menu">menu</a>
+            <a class = "w3-bar-item" style="font-size:32px" id="nav_site_name">Lager</a>
+            <div style="float: right; display:inline-flex">
+              <a class="w3-bar-item material-icons md-48 w3-teal w3-text-white w3-border-0" id="nav_search">search</a>
+                <svg class ="symbols" style="width:48px;height:48px; margin-top: 8px" viewBox="0 0 24 24" id="nav_barcode">
+                  <path fill="#fff" d="M4,6H6V18H4V6M7,6H8V18H7V6M9,6H12V18H9V6M13,6H14V18H13V6M16,6H18V18H16V6M19,6H20V18H19V6M2,4V8H0V4A2,2 0 0,1 2,2H6V4H2M22,2A2,2 0 0,1 24,4V8H22V4H18V2H22M2,16V20H6V22H2A2,2 0 0,1 0,20V16H2M22,20V16H24V20A2,2 0 0,1 22,22H18V20H22Z" />
+                </svg>
+              <a class ="w3-bar-item material-icons md-48 w3-teal w3-text-white w3-border-0" id = "nav_more">more_vert </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--top bars -->
+      <div class="w3-top"  style="z-index:3">
+        <div class="w3-bar top-bar w3-animate-top">
+          <div class="holy-grail">
+            <!--Searchbar-->
+            <div class="searchbar">
+              <a class="w3-bar-item material-icons md-48 w3-white w3-text-black w3-border-0" id="search_back">arrow_back</a>
+              <div class="input-search-container">
+                <input class="input-search" type="text" placeholder="Search..." id="search_bar"></input>
+              </div>
+            </div>
+            <!--Select mode-->
+            <div class = "select-mode">
+              <div style = "float:left">
+                <a class="w3-bar-item w3-text-black material-icons md-48 symbols" id ="select_back">arrow_back</a>
+                <a class = "w3-bar-item w3-text-black" id ="select_counter"></a>
+              </div>
+              <div style="float:right; display:inline-flex">
+                <a class="material-icons md-48 w3-bar-item w3-text-black" id="select_einkauf">playlist_add</a>
+                <a class = "w3-bar-item w3-text-black material-icons md-48" id ="select_delete">delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="w3-sidebar w3-bar-block w3-border-right w3-animate-left"  id="sidebar">
+        <a class="w3-bar-item sidebar-titel">Menu</a>
+        <hr>
+        <div class="sidebar-item-wrapper w3-bar-item" id="sidebar_lager">
+          <a class="material-icons md-36 sidebar-item">kitchen</a>
+          <a class="w3-button w3-large sidebar-item symbols disabled">Lager</a>
+        </div>
+        <div class="sidebar-item-wrapper w3-bar-item" id = "sidebar_einkauf">
+          <a class="material-icons md-36 sidebar-item">local_grocery_store</a>
+          <a class="w3-button w3-large sidebar-item symbols disabled">Einkaufsliste</a>
+        </div>
+      </div>
+    </header>
+
+
+
+    <!-- Content-->
+    <div id="content" class="holy-grail" >
+
+      <!--Input New -->
+      <div class ="input-newlist-container">
+        <div class="input-newlist">
+          <div class ="input-newlist-header">
+            <a></a>
+          </div>
+          <div class ="input-newlist-body">
+            <input class="animate-input" id="input-newlist"></input>
+          </div>
+          <div class ="input-newlist-footer">
+            <a id="input-newlist_back">Abbrechen</a>
+            <a id="input-newlist_done"> Bestätigen</a>
+          </div>
+        </div>
+      </div>
+
+      <!--Form Neu anlegen-->
+      <div class="form-wrapper">
+        <Form class="add" id="add" onsubmit="return false">
+          <div class="add-header">
+            <a>Hinzufügen</a>
+          </div>
+          <div class="add-body">
+            <div class ="add-body-item">
+              <input class="add-input" type="text" id = "add-code" required></input>
+              <label for="add-code">Barcode</label>
+            </div>
+            <div class="add-body-item">
+              <input class="add-input" type="text" id ="add-name" required></input>
+              <label for="add-name">Name</label>
+            </div>
+            <div class="add-body-item">
+              <a>Kategorie: </a>
+              <select class="add-select" id = "add-kategorie">
+                <option value = "" disabled selected>Bitte wählen</option>
+              </select>
+            </div>
+            <div class="add-body-item">
+              <a>Lagerort: </a>
+              <select class="add-select" id ="add-ort">
+                <option value = "" disabled selected>Bitte wählen</option>
+              </select>
+            </div>
+            <div class="add-body-item">
+              <a>Laden: </a>
+              <select class="add-select" id ="add-store">
+                <option value="" disabled selected>Bitte wählen</option>
+              </select>
+            </div>
+            <div class="add-body-item add-body-item-last">
+              <a>Anzahl: </a>
+              <input class="add-input" type ="number" onkeypress="return event.charCode >= 48" min = "0" id = "add-anzahl" required></input>
+              <select class="add-select" id ="add-einheit">
+                <option value = "" disabled selected>Bitte wählen</option>
+              </select>
+            </div>
+          </div>
+          <div class="add-footer">
+            <button class="no-button-style" type="reset" id="add_back">Abbrechen</a>
+            <button class="no-button-style" type="submit" id="add_done">Bestätigen</button>
+          </div>
+        </Form>
+      </div>
+
+      <!--Einlaufsliste Auswahl-->
+      <div class="einkauf-container">
+        <div class="einkauf">
+          <div class="einkauf-header">
+            <a>Liste auswählen</a>
+          </div>
+          <div class="einkauf-body" id="einkauf-body"></div>
+          <div class="einkauf-footer">
+            <a id="einkauf_back">Abbrechen</a>
+          </div>
+        </div>
+      </div>
+
+      <!--list-elements-->
+      <div id="list-container"></div>
+
+      <!--edit-mode-->
+      <div id = "edit-container">
+        <div class="edit-mode">
+          <div class="edit-header">
+            <a class="material-icons md-36" id="edit-back">arrow_back</a>
+            <a class ="symbols edit-header-title" id ="edit-header-title">Artikel bearbeiten</a>
+          </div>
+          <div style="float:right">
+            <a class="material-icons md-36"  id="edit-done">done</a>
+          </div>
+          <div  class="edit-body">
+            <div class="edit-body-item">
+              <a class="edit-item">Barcode:</a>
+              <a id="edit-Barcode" contenteditable="true"></a>
+            </div>
+            <div class="edit-body-item">
+              <a class="edit-item">Name:</a>
+              <a id="edit-Name" contenteditable="true"></a>
+            </div>
+            <div class="edit-body-item">
+              <a class="edit-item">Kategorie:</a>
+              <select class ="edit-select" id="edit-Kategorie" required>
+                <option value = "" disabled selected>Kategorie wählen</option>
+              </select>
+            </div>
+            <div class="edit-body-item">
+              <a class="edit-item">Anzahl:</a>
+              <input class ="w3-input"  type="number" onkeypress="return event.charCode >= 48" min="0"  id ="edit-Anzahl" required> </input>
+              <select class="edit-select" id="edit-Einheit" required>
+                <option value = "" disabled selected>Einheit wählen</option>
+              </select>
+            </div>
+            <div class="edit-body-item">
+              <a class="edit-item">Ort:</a>
+              <select class="edit-select" id="edit-Ort" required>
+                <option value = "" disabled selected>Ort wählen</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Button Add (Bottom Right)-->
+    <div class="btnAdd">
+      <button class="material-icons w3-circle w3-teal w3-border-0 w3-hover-shadow box-shadowV-small" id="btnAdd">add</button>
+    </div>
+    </div>
+  </body>
+  </div>
+  <!--Overlay-->
+  <div class="w3-overlay w3-animate-opacity"  style="cursor:pointer" id="overlay"></div>
+</html>
