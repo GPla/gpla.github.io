@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet/less" type="text/css" href="CSS/STYLE_NEW.less">
+    <link rel="stylesheet" type="text/css" href="CSS/animate.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="CSS/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- JS -->
+    <script type="text/javascript" src="JS/less.js-2.7.2/dist/less.min.js"></script>
+    <script type ="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="JS/TouchSwipe-Jquery-Plugin-master/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="JS/prototype.js"></script>
+    <script type="text/javascript" src="JS/header.js"></script>
+    <script type="text/javascript" src="JS/db.js"></script>
+    <script type="text/javascript" src="JS/lager_neu.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header >
+        <div class ="navbar-wrapper">
+          <nav role="navigation">
+            <ul class="navbar area">
+              <li><i class ="material-icons" id="navbar-menu">menu</i></li>
+              <li><a id ="navbar-title">Lager</a></li>
+              <li><i class="material-icons" id="navbar-search">search</i></li>
+              <li><i class="material-icons" id="navbar-more">more_vert</i></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="search-wrapper animate-top">
+          <ul class="search area">
+            <li><i class="material-icons" id="search-back">arrow_back</i></li>
+            <li><input type="text" placeholder="Suche..." id="search-input"></input></li>
+          </ul>
+        </div>
+        <div class="select-wrapper animate-top">
+          <ul class="select area">
+            <li><i class="material-icons">arrow_back</i> </li>
+            <li><a id="select-counter">0</a></li>
+            <li><i class="material-icons">playlist_add</i></li>
+            <li><i class="material-icons">delete</i></li>
+          </ul>
+        </div>
+        <div class="sidebar-wrapper animate-left">
+          <div class="sidebar">
+            <div>
+              <h2>Menu</h2>
+            </div>
+            <hr>
+            <div id="sidebar-lager">
+              <i class="material-icons">kitchen</i>
+              <a>Lager</a>
+            </div>
+            <div id="sidebar-liste">
+              <i class="material-icons">local_grocery_store</i>
+              <a>Einkaufslisten</a>
+              <i class="material-icons" id="sidebar-liste-arrow">arrow_drop_down</i>
+            </div>
+            <div class="visible" id="sidebar-liste-details-wrapper">
+              <ul class="sidebar-liste-details"></ul>
+            </div>
+            <div>
+              <i class="material-icons">delete</i>
+              <a>Delete</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section>
+        <div class="content">
+          <div id="list-element-container">
+            <div id ="element">
+              <a>Cow Cow Brown</a>
+              <a id="anzahl">12</a>
+              <img src="css/pics/einheiten/flasche(n).svg">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <section>
+      <div class="visible" id="add-form-wrapper">
+        <div class="add-form-wrapper" id="add-form-background">
+          <Form class="add" id="add">
+            <div class="add-header">
+              <a>Hinzufügen</a>
+            </div>
+            <div class="add-body">
+              <div class ="add-body-item">
+                <input class="add-input" type="text" id = "add-code" required></input>
+                <label for="add-code">Barcode</label>
+              </div>
+              <div class="add-body-item">
+                <input class="add-input" type="text" id ="add-name" required></input>
+                <label for="add-name">Name</label>
+              </div>
+              <div class="add-body-item">
+                <a>Kategorie: </a>
+                <select class="add-select" id = "add-kategorie">
+                  <option value = "" disabled selected>Bitte wählen</option>
+                </select>
+              </div>
+              <div class="add-body-item">
+                <a>Lagerort: </a>
+                <select class="add-select" id ="add-ort">
+                  <option value = "" disabled selected>Bitte wählen</option>
+                </select>
+              </div>
+              <div class="add-body-item">
+                <a>Laden: </a>
+                <select class="add-select" id ="add-store">
+                  <option value="" disabled selected>Bitte wählen</option>
+                </select>
+              </div>
+              <div class="add-body-item">
+                <a>Anzahl: </a>
+                <input class="add-input" type ="number" onkeypress="return event.charCode >= 48" min = "0" id = "add-anzahl" required></input>
+                <select class="add-select" id ="add-einheit">
+                  <option value = "" disabled selected>Bitte wählen</option>
+                </select>
+              </div>
+            </div>
+            <div class="add-footer">
+              <button class="no-button-style" type="reset" id="add-back">Abbrechen</a>
+              <button class="no-button-style" type="submit" id="add-done">Bestätigen</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="add-open">
+        <i class="material-icons" id="add-open">add</i>
+      </div>
+    </section>
+    <div class="overlay animate-opac"></div>
+  </body>
+</html>

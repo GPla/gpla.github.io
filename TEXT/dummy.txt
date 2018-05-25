@@ -1,0 +1,158 @@
+let tx = db.transaction(["Einheit"], "readonly");
+let store = tx.objectStore("Einheit");
+let req = store.getAll();
+let items;
+req.onsuccess = function(){
+  items = event.target.result;
+};
+req.onerror = function(){
+  console.error("fEinheit", this.error());
+};
+tx.oncomplete = function(callback){
+  callback(items);
+};
+
+min-width: 700px; max-width: 1060px;
+
+$(document).ready(function(){
+  $("#nav_menu").click(openSidebar);  // open sidebar
+  $("#nav_search").click(openSearchbar); //open searchbar
+
+  $(".sidebar-item-wrapper").click(function(){
+    let site = this.id.substring(this.id.indexOf("_") + 1);
+    window.open(site + ".html", "_self");
+  });
+
+  $("#overlay").click(function(){ //overlay
+    if ($(".searchbar").css("display").toLowerCase() == "block" && $(".select-mode").css("display").toLowerCase() == "none") closeSearchbar();
+    if ($("#sidebar").css("display").toLowerCase() == "block") closeSidebar();
+  });
+});
+
+
+function openSidebar(){
+  $("#nav_menu").css("transform","rotate(90deg)");
+  $("#sidebar").css("display" , "block");
+  $("#overlay").css({"display":"block", "z-index" : "3"});
+};
+function closeSidebar(){
+  $("#nav_menu").css("transform","");
+  $("#sidebar").css("display","none");
+  $("#overlay").css({"display":"none", "z-index" : "2"});
+};
+
+
+function openSearchbar(){
+  $(".searchbar").css("display", "block");
+  $(".top-bar").css({"display" : "block", "background-color" : "#fff"});
+  $("#search_bar").trigger("focus");
+  $("#overlay").css("display", "block");
+}
+function closeSearchbar(){
+  $(".searchbar").css("display", "none")
+  $(".top-bar").css("display", "none");
+  $("#overlay").css("display", "none")
+}
+
+#overlay{
+  background-color: rgba(0,0,0,0.5);
+  bottom:0px;
+  cursor: pointer;
+  display:none;
+  position:fixed;
+  height: 100%;
+  left:0px;
+  right:0px;
+  top:0px;
+  width: 100%;
+  z-index: 1;
+}
+
+
+<i class="material-icons animated flipInY" id="done">done</i>
+
+<div id ="element">
+  <a>Cow Cow Brown</a>
+  <a id="anzahl">12</a>
+  <img src="css/pics/einheiten/flasche(n).svg">
+  <i class="material-icons">expand_more</i>
+  <div class="element">
+    <div>
+      <img src="css/pics/einheiten/flasche(n).svg">
+      <a id="anzahl">12</a>
+    </div>
+    <div>
+      <img src="css/pics/barcode.svg">
+      <a>12313131323</a>
+    </div>
+    <div>
+      <img src="css/pics/store.svg">
+      <a>Scheune</a>
+    </div>
+    <div>
+      <img src="css/pics/fridge.svg">
+      <a>Keller</a>
+    </div>
+    <div>
+      <img src="css/pics/shopping-cart.svg">
+      <a>Keine</a>
+    </div>
+  </div>
+</div>
+
+& >div:first-child{
+  background-color: #0080FF;
+  color: #fff;
+  font-size: @add-form-font-size;
+  text-align: center;
+}
+& > div{
+  padding: 10px 20px;
+  & > div{
+    padding-top: 20px;
+    & > label{
+      position: absolute;
+      color: #000;
+      font-size:  @add-form-font-size * 0.7;
+      margin-top: -35px;
+      transition: 0.2s;
+      display: block;
+    }
+    & > input:focus{
+      outline:none;
+    }
+    & > input:focus + label, & > input:valid + label{
+      color: #0066CC;
+      font-size: @add-form-font-size * 0.6;
+      margin-top: -50px;
+    }
+    & > input{
+      border-bottom: 1px solid #e0e0e0;
+      width: 100%;
+      font-size: @add-form-font-size *0.7;
+      @media(min-width: 800px){width: 600px;}
+    }
+    & > a{
+      font-size: @add-form-font-size * 0.7;
+    }
+    & > select{
+      appearance:none;
+      background: url(pics/1px/e0e0e0-0.3.png) repeat;
+      border:none;
+      color:#000!important;
+      font-size: @add-form-font-size * 0.6;
+      margin-left: 3px;
+      outline: none;
+      padding: 5px 5px 5px 5px;
+    }
+  }
+  & > div:not(:nth-child(n+3)){
+    padding-top: 25px;
+  }
+  & > div:nth-child(6){
+    & >input{
+      text-align: center;
+      width: 40px;
+    }
+  }
+}
